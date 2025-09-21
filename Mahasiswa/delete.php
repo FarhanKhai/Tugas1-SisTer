@@ -14,7 +14,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $NIM);
 
 if ($stmt->execute()) {
-    header("Location: index.php?status=deleted");
+    header("Location: index.php");
     exit;
 } else {
     echo "Gagal menghapus data Mahasiswa: " . $stmt->error;

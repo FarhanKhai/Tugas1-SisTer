@@ -1,7 +1,6 @@
 <?php
 include '../config/db.php';
 
-
 // Cek apakah NIM ada
 if (!isset($_GET['NIM']))
     die("NIM tidak ditemukan.");
@@ -22,22 +21,77 @@ if (!$mhs) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Edit Data Mahasiswa</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student - Sebelas Maret University</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <h2>Edit Data Mahasiswa</h2>
-    <form method="POST" action="process_edit.php">
-        <input type="hidden" name="NIM" value="<?= $mhs['NIM'] ?>">
+    <!-- Added modern header with navigation -->
+    <header class="header">
+        <div class="logo-section">
+            <a href="index.php" class="btn btn-back">
+                <!-- Fixed back button to use arrow icon only -->
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1 class="university-title">Edit Student</h1>
+                <p class="subtitle">Sebelas Maret University</p>
+            </div>
+        </div>
+    </header>
 
-        Nama: <br>
-        <input type="text" name="Nama" value="<?= $mhs['Nama'] ?>" required><br><br>
+    <div class="dashboard-container">
+        <!-- Modern form container with styling -->
+        <div class="form-container">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <h2 class="card-title">Edit Student Information</h2>
+            </div>
 
-        Alamat: <br>
-        <input type="text" name="Alamat" value="<?= $mhs['Alamat'] ?>" required><br><br>
+            <form method="POST" action="process_edit.php">
+                <input type="hidden" name="NIM" value="<?= htmlspecialchars($mhs['NIM']) ?>">
 
-        <button type="submit">Update</button>
-    </form>
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-id-card"></i> Student ID (NIM)
+                    </label>
+                    <input type="text" class="form-input" value="<?= htmlspecialchars($mhs['NIM']) ?>" disabled>
+                    <small style="color: var(--text-light); font-size: 0.85rem;">Student ID cannot be changed</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="Nama" class="form-label">
+                        <i class="fas fa-user"></i> Full Name
+                    </label>
+                    <input type="text" id="Nama" name="Nama" class="form-input" 
+                           value="<?= htmlspecialchars($mhs['Nama']) ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Alamat" class="form-label">
+                        <i class="fas fa-map-marker-alt"></i> Address
+                    </label>
+                    <input type="text" id="Alamat" name="Alamat" class="form-input" 
+                           value="<?= htmlspecialchars($mhs['Alamat']) ?>" required>
+                </div>
+
+                <!-- Modern form actions with cancel button -->
+                <div class="form-actions">
+                    <button type="button" onclick="window.location.href='index.php'" class="btn btn-cancel">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update Student
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

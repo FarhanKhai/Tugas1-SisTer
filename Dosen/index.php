@@ -1,6 +1,15 @@
 <?php
 include '../config/db.php';
-$result = $conn->query("SELECT * FROM Dosen");
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'NIP';
+
+$query = "SELECT * FROM Dosen";
+if ($search) {
+    $query .= " WHERE NIP LIKE '%$search%' OR Nama LIKE '%$search%'";
+}
+$query .= " ORDER BY $sort";
+
+$result = $conn->query($query);
 ?>
 
 <!DOCTYPE html>
@@ -8,30 +17,140 @@ $result = $conn->query("SELECT * FROM Dosen");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Dosen</title>
+    <title>Lecturer Management - Sebelas Maret University</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-    <h1>Data Dosen</h1>
-    <a href="add.php">Tambah Dosen</a>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <tr>
-            <th>NIP</th>
-            <th>Nama</th>
-            <th>Alamat</th>
-            <th>Action</th>
-        </tr>
-        <?php while($row = $result->fetch_assoc()): ?>
-        <tr>
-            <td><?php echo $row['NIP']; ?></td>
-            <td><?php echo $row['Nama']; ?></td>
-            <td><?php echo $row['Alamat']; ?></td>
-            <td>
-                <a href="edit.php?NIP=<?php echo $row['NIP']; ?>">Edit</a> |
-                <a href="delete.php?NIP=<?php echo $row['NIP']; ?>" onclick="return confirm('Are you sure?')">Delete</a>
-            </td>
-        <tr>
-        <?php endwhile; ?>
-    </table>
+    <!-- Modern header with back navigation -->
+    <header class="header">
+        <div class="logo-section">
+            <a href="../index.php" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1 class="university-title">Lecturer Management</h1>
+                <p class="subtitle">Sebelas Maret University</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Modern table container with search and sort -->
+        <div class="table-container">
+            <div class="table-header">
+                <h2 class="table-title">
+                    <i class="fas fa-chalkboard-teacher"></i> Lecturer Records
+                </h2>
+                <a href="add.php" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add New Lecturer
+                </a>
+            </div>
+
+            <!-- Search and Sort Controls -->
+            <div class="table-controls">
+                <form method="GET" style="display: flex; gap: 1rem; flex: 1;">
+                    <input type="text" name="search" class="search-box" 
+                           placeholder="Search by NIP or Name..." 
+                           value="<?php echo htmlspecialchars($search); ?>">
+                    
+                    <select name="sort" class="sort-select" onchange="this.form.submit()">
+                        <option value="NIP" <?php echo $sort == 'NIP' ? 'selected' : ''; ?>>Sort by NIP</option>
+                        <option value="Nama" <?php echo $sort == 'Nama' ? 'selected' : ''; ?>>Sort by Name</option>
+                        <option value="Alamat" <?php echo $sort == 'Alamat' ? 'selected' : ''; ?>>Sort by Address</option>
+                    </select>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </form>
+            </div>
+
+            <!-- Modern Data Table -->
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-id-badge"></i> NIP</th>
+                        <th><i class="fas fa-user-tie"></i> Name</th>
+                        <th><i class="fas fa-map-marker-alt"></i> Address</th>
+                        <th><i class="fas fa-cogs"></i> Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if ($result->num_rows > 0): ?>
+                        <?php while($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td><strong><?php echo htmlspecialchars($row['NIP']); ?></strong></td>
+                            <td><?php echo htmlspecialchars($row['Nama']); ?></td>
+                            <td><?php echo htmlspecialchars($row['Alamat']); ?></td>
+                            <td>
+                                <!-- Icon-based action buttons -->
+                                <div class="action-buttons">
+                                    <a href="edit.php?NIP=<?php echo $row['NIP']; ?>" 
+                                       class="btn-icon btn-edit" title="Edit Lecturer">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <button onclick="confirmDelete('<?php echo $row['NIP']; ?>', '<?php echo htmlspecialchars($row['Nama']); ?>')" 
+                                            class="btn-icon btn-delete" title="Delete Lecturer">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4" class="text-center" style="padding: 2rem; color: var(--text-light);">
+                                <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+                                No lecturers found. <a href="add.php">Add the first lecturer</a>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Custom Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 class="modal-title">Confirm Deletion</h3>
+                <p class="modal-message">Are you sure you want to delete this lecturer? This action cannot be undone.</p>
+            </div>
+            <div class="modal-actions">
+                <button onclick="closeDeleteModal()" class="btn btn-cancel">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <a id="confirmDeleteBtn" href="#" class="btn btn-confirm">
+                    <i class="fas fa-trash"></i> Delete
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDelete(nip, nama) {
+            document.getElementById('deleteModal').classList.remove('hidden');
+            document.getElementById('confirmDeleteBtn').href = `delete.php?NIP=${nip}`;
+            document.querySelector('.modal-message').innerHTML = 
+                `Are you sure you want to delete lecturer <strong>${nama}</strong> (NIP: ${nip})? This action cannot be undone.`;
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('deleteModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDeleteModal();
+            }
+        });
+    </script>
 </body>
 </html>

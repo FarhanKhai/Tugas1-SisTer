@@ -1,8 +1,7 @@
 <?php
 include '../config/db.php';
 
-
-// Cek apakah NIM ada
+// Cek apakah NIP ada
 if (!isset($_GET['NIP']))
     die("NIP tidak ditemukan.");
 
@@ -22,22 +21,76 @@ if (!$Dosen) {
 ?>
 
 <!DOCTYPE html>
-<html>
-<head>  
-    <title>Edit Data Dosen</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Lecturer - Sebelas Maret University</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <h2>Edit Data Dosen</h2>
-    <form method="POST" action="process_edit.php">
-        <input type="hidden" name="NIP" value="<?= $Dosen['NIP'] ?>">
+    <!-- Added modern header with navigation matching Mahasiswa edit page -->
+    <header class="header">
+        <div class="logo-section">
+            <a href="index.php" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1 class="university-title">Edit Lecturer</h1>
+                <p class="subtitle">Sebelas Maret University</p>
+            </div>
+        </div>
+    </header>
 
-        Nama: <br>
-        <input type="text" name="Nama" value="<?= $Dosen['Nama'] ?>" required><br><br>
+    <div class="dashboard-container">
+        <!-- Added modern form container with styling matching Mahasiswa edit page -->
+        <div class="form-container">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <h2 class="card-title">Edit Lecturer Information</h2>
+            </div>
 
-        Alamat: <br>
-        <input type="text" name="Alamat" value="<?= $Dosen['Alamat'] ?>" required><br><br>
+            <form method="POST" action="process_edit.php">
+                <input type="hidden" name="NIP" value="<?= htmlspecialchars($Dosen['NIP']) ?>">
 
-        <button type="submit">Update</button>
-    </form>
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-id-card"></i> Lecturer ID (NIP)
+                    </label>
+                    <input type="text" class="form-input" value="<?= htmlspecialchars($Dosen['NIP']) ?>" disabled>
+                    <small style="color: var(--text-light); font-size: 0.85rem;">Lecturer ID cannot be changed</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="Nama" class="form-label">
+                        <i class="fas fa-user"></i> Full Name
+                    </label>
+                    <input type="text" id="Nama" name="Nama" class="form-input" 
+                           value="<?= htmlspecialchars($Dosen['Nama']) ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Alamat" class="form-label">
+                        <i class="fas fa-map-marker-alt"></i> Address
+                    </label>
+                    <input type="text" id="Alamat" name="Alamat" class="form-input" 
+                           value="<?= htmlspecialchars($Dosen['Alamat']) ?>" required>
+                </div>
+
+                <!-- Added modern form actions with cancel button matching Mahasiswa edit page -->
+                <div class="form-actions">
+                    <button type="button" onclick="window.location.href='index.php'" class="btn btn-cancel">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update Lecturer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

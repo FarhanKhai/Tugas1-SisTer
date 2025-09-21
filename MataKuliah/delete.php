@@ -14,7 +14,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $KodeMatkul);
 
 if ($stmt->execute()) {
-    header("Location: index.php?status=deleted");
+    header("Location: index.php");
     exit;
 } else {
     echo "Gagal menghapus data Mata Kuliah: " . $stmt->error;

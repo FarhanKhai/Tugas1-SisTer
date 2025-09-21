@@ -1,26 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Tambah Data Mahasiswa</title>
     <meta charset="UTF-8">
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Student - Sebelas Maret University</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
 
-<body></body>
-    <h1>Tambah Data Mahasiswa</h1>
-    <form action="process_add.php" method="POST">
-        <label for="NIM">NIM:</label>
-        <input type="text" id="NIM" name="NIM" required><br>
+<body>
+    <!-- Replaced "Back to Students" text with just arrow icon -->
+    <header class="header">
+        <div class="logo-section">
+            <a href="index.php" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1 class="university-title">Add New Student</h1>
+                <p class="subtitle">Sebelas Maret University</p>
+            </div>
+        </div>
+    </header>
 
-        <label for="Nama">Nama:</label>
-        <input type="text" id="Nama" name="Nama" required><br>
+    <div class="dashboard-container">
+        <!-- Modern form container with styling -->
+        <div class="form-container">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h2 class="card-title">Student Information</h2>
+            </div>
 
-        <label for="Alamat">Alamat:</label>
-        <input type="text" id="Alamat" name="Alamat" required><br>
+            <form action="process_add.php" method="POST">
+                <div class="form-group">
+                    <label for="NIM" class="form-label">
+                        <i class="fas fa-id-card"></i> Student ID (NIM)
+                    </label>
+                    <input type="text" id="NIM" name="NIM" class="form-input" 
+                           placeholder="Enter student ID number" required>
+                </div>
 
-        <button type="submit">Simpan</button>
-        <button type="button" onclick="window.location.href='index.php'">Batal</button>
-    </form>
+                <div class="form-group">
+                    <label for="Nama" class="form-label">
+                        <i class="fas fa-user"></i> Full Name
+                    </label>
+                    <input type="text" id="Nama" name="Nama" class="form-input" 
+                           placeholder="Enter student full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Alamat" class="form-label">
+                        <i class="fas fa-map-marker-alt"></i> Address
+                    </label>
+                    <input type="text" id="Alamat" name="Alamat" class="form-input" 
+                           placeholder="Enter student address" required>
+                </div>
+
+                <!-- Modern form actions with icons -->
+                <div class="form-actions">
+                    <button type="button" onclick="window.location.href='index.php'" class="btn btn-cancel">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Student
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
-
-
