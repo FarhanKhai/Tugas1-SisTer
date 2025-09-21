@@ -30,7 +30,6 @@ if (!$Dosen) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Added modern header with navigation matching Mahasiswa edit page -->
     <header class="header">
         <div class="logo-section">
             <a href="index.php" class="btn btn-back">
@@ -44,7 +43,6 @@ if (!$Dosen) {
     </header>
 
     <div class="dashboard-container">
-        <!-- Added modern form container with styling matching Mahasiswa edit page -->
         <div class="form-container">
             <div class="card-header">
                 <div class="card-icon">
@@ -54,14 +52,13 @@ if (!$Dosen) {
             </div>
 
             <form method="POST" action="process_edit.php">
-                <input type="hidden" name="NIP" value="<?= htmlspecialchars($Dosen['NIP']) ?>">
+                <input type="hidden" name="oldNIP" value="<?= htmlspecialchars($Dosen['NIP']) ?>">
 
                 <div class="form-group">
-                    <label class="form-label">
+                    <label for="NIP" class="form-label">
                         <i class="fas fa-id-card"></i> Lecturer ID (NIP)
                     </label>
-                    <input type="text" class="form-input" value="<?= htmlspecialchars($Dosen['NIP']) ?>" disabled>
-                    <small style="color: var(--text-light); font-size: 0.85rem;">Lecturer ID cannot be changed</small>
+                    <input type="text" id="NIP" name="NIP" class="form-input" value="<?= htmlspecialchars($Dosen['NIP']) ?>" required>
                 </div>
 
                 <div class="form-group">
@@ -80,7 +77,6 @@ if (!$Dosen) {
                            value="<?= htmlspecialchars($Dosen['Alamat']) ?>" required>
                 </div>
 
-                <!-- Added modern form actions with cancel button matching Mahasiswa edit page -->
                 <div class="form-actions">
                     <button type="button" onclick="window.location.href='index.php'" class="btn btn-cancel">
                         <i class="fas fa-times"></i> Cancel

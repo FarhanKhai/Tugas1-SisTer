@@ -30,7 +30,6 @@ if (!$MataKuliah) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Added modern header with navigation matching Mahasiswa edit page -->
     <header class="header">
         <div class="logo-section">
             <a href="index.php" class="btn btn-back">
@@ -44,7 +43,6 @@ if (!$MataKuliah) {
     </header>
 
     <div class="dashboard-container">
-        <!-- Added modern form container with styling matching Mahasiswa edit page -->
         <div class="form-container">
             <div class="card-header">
                 <div class="card-icon">
@@ -54,14 +52,13 @@ if (!$MataKuliah) {
             </div>
 
             <form method="POST" action="process_edit.php">
-                <input type="hidden" name="KodeMatkul" value="<?= htmlspecialchars($MataKuliah['KodeMatkul']) ?>">
+                <input type="hidden" name="oldKodeMatkul" value="<?= htmlspecialchars($MataKuliah['KodeMatkul']) ?>">
 
                 <div class="form-group">
-                    <label class="form-label">
+                    <label for="KodeMatkul" class="form-label">
                         <i class="fas fa-file-alt"></i> Subject Code
                     </label>
-                    <input type="text" class="form-input" value="<?= htmlspecialchars($MataKuliah['KodeMatkul']) ?>" disabled>
-                    <small style="color: var(--text-light); font-size: 0.85rem;">Subject code cannot be changed</small>
+                    <input type="text" id="KodeMatkul" name="KodeMatkul" class="form-input" value="<?= htmlspecialchars($MataKuliah['KodeMatkul']) ?>" required>
                 </div>
 
                 <div class="form-group">
@@ -88,7 +85,6 @@ if (!$MataKuliah) {
                            value="<?= htmlspecialchars($MataKuliah['Semester']) ?>" min="1" max="8" required>
                 </div>
 
-                <!-- Added modern form actions with cancel button matching Mahasiswa edit page -->
                 <div class="form-actions">
                     <button type="button" onclick="window.location.href='index.php'" class="btn btn-cancel">
                         <i class="fas fa-times"></i> Cancel

@@ -36,7 +36,6 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Modern header with back navigation -->
     <header class="header">
         <div class="logo-section">
             <a href="../index.php" class="btn btn-back">
@@ -50,7 +49,6 @@ $result = $conn->query($sql);
     </header>
 
     <div class="dashboard-container">
-        <!-- Modern table container with search and sort -->
         <div class="table-container">
             <div class="table-header">
                 <h2 class="table-title">
@@ -61,7 +59,6 @@ $result = $conn->query($sql);
                 </a>
             </div>
 
-            <!-- Search and Sort Controls -->
             <div class="table-controls">
                 <form method="GET" style="display: flex; gap: 1rem; flex: 1;">
                     <input type="text" name="search" class="search-box" 
@@ -81,7 +78,6 @@ $result = $conn->query($sql);
                 </form>
             </div>
 
-            <!-- Modern Data Table -->
             <table class="data-table">
                 <thead>
                     <tr>
@@ -111,18 +107,16 @@ $result = $conn->query($sql);
                                     <small style="color: var(--text-light);">NIP: <?= htmlspecialchars($row['NIP']) ?></small>
                                 </div>
                             </td>
-                            <!-- Centered grade column data and removed green background -->
                             <td style="text-align: center;">
                                 <strong><?= htmlspecialchars($row['Nilai']) ?></strong>
                             </td>
                             <td>
-                                <!-- Icon-based action buttons -->
                                 <div class="action-buttons">
                                     <a href="edit.php?nim=<?= $row['NIM'] ?>&kodematkul=<?= $row['KodeMatkul'] ?>&nip=<?= $row['NIP'] ?>" 
                                        class="btn-icon btn-edit" title="Edit Class Record">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <button onclick="confirmDelete('<?= $row['NIM'] ?>', '<?= $row['KodeMatkul'] ?>', '<?= $row['NIP'] ?>', '<?= htmlspecialchars($row['NamaMahasiswa']) ?>', '<?= htmlspecialchars($row['NamaMatkul']) ?>')" 
+                                    <button onclick="confirmDelete('<?= $row['NIM'] ?>', '<?= $row['KodeMatkul'] ?>', '<?= $row['NIP'] ?>', '<?= addslashes(htmlspecialchars($row['NamaMahasiswa'])) ?>', '<?= addslashes(htmlspecialchars($row['NamaMatkul'])) ?>')" 
                                             class="btn-icon btn-delete" title="Delete Class Record">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -143,7 +137,6 @@ $result = $conn->query($sql);
         </div>
     </div>
 
-    <!-- Custom Delete Confirmation Modal -->
     <div id="deleteModal" class="modal-overlay hidden">
         <div class="modal">
             <div class="modal-header">

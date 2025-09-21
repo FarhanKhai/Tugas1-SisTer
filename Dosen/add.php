@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <!-- Added modern header with navigation -->
     <header class="header">
         <div class="logo-section">
             <a href="index.php" class="btn btn-back">
@@ -23,7 +22,6 @@
     </header>
 
     <div class="dashboard-container">
-        <!-- Modern form container with styling -->
         <div class="form-container">
             <div class="card-header">
                 <div class="card-icon">
@@ -57,7 +55,6 @@
                            placeholder="Enter lecturer address" required>
                 </div>
 
-                <!-- Modern form actions with icons -->
                 <div class="form-actions">
                     <button type="button" onclick="window.location.href='index.php'" class="btn btn-cancel">
                         <i class="fas fa-times"></i> Cancel

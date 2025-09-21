@@ -30,11 +30,9 @@ if (!$mhs) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Added modern header with navigation -->
     <header class="header">
         <div class="logo-section">
             <a href="index.php" class="btn btn-back">
-                <!-- Fixed back button to use arrow icon only -->
                 <i class="fas fa-arrow-left"></i>
             </a>
             <div>
@@ -45,7 +43,6 @@ if (!$mhs) {
     </header>
 
     <div class="dashboard-container">
-        <!-- Modern form container with styling -->
         <div class="form-container">
             <div class="card-header">
                 <div class="card-icon">
@@ -55,14 +52,13 @@ if (!$mhs) {
             </div>
 
             <form method="POST" action="process_edit.php">
-                <input type="hidden" name="NIM" value="<?= htmlspecialchars($mhs['NIM']) ?>">
+                <input type="hidden" name="oldNIM" value="<?= htmlspecialchars($mhs['NIM']) ?>">
 
                 <div class="form-group">
-                    <label class="form-label">
+                    <label for="NIM" class="form-label">
                         <i class="fas fa-id-card"></i> Student ID (NIM)
                     </label>
-                    <input type="text" class="form-input" value="<?= htmlspecialchars($mhs['NIM']) ?>" disabled>
-                    <small style="color: var(--text-light); font-size: 0.85rem;">Student ID cannot be changed</small>
+                    <input type="text" id="NIM" name="NIM" class="form-input" value="<?= htmlspecialchars($mhs['NIM']) ?>" required>
                 </div>
 
                 <div class="form-group">
@@ -81,7 +77,6 @@ if (!$mhs) {
                            value="<?= htmlspecialchars($mhs['Alamat']) ?>" required>
                 </div>
 
-                <!-- Modern form actions with cancel button -->
                 <div class="form-actions">
                     <button type="button" onclick="window.location.href='index.php'" class="btn btn-cancel">
                         <i class="fas fa-times"></i> Cancel

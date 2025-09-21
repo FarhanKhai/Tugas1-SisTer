@@ -1,4 +1,3 @@
-<!-- Complete redesign as modern university dashboard -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,34 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sebelas Maret University - Student Information System</title>
     <link rel="stylesheet" href="assets/style.css">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header Section -->
     <header class="header">
         <div class="logo-section">
-            <div class="logo-placeholder">
-                <span>LOGO</span>
-            </div>
+            <img src="assets/logouns.png" alt="Sebelas Maret University Logo" class="logo">
             <div>
                 <h1 class="university-title">Sebelas Maret University</h1>
                 <p class="subtitle">Student Information System</p>
             </div>
         </div>
-        <!-- Removed navigation icons from header as requested -->
-    </header>
+        </header>
 
-    <!-- Dashboard Container -->
     <div class="dashboard-container">
         <div class="text-center mb-2">
             <h2 style="color: var(--university-blue); font-size: 2rem; margin-bottom: 0.5rem;">Dashboard Overview</h2>
             <p style="color: var(--text-light);">Manage your university data efficiently</p>
         </div>
 
-        <!-- Data Cards Grid -->
         <div class="dashboard-grid">
-            <!-- Students Card -->
             <div class="data-card">
                 <div class="card-header">
                     <div class="card-icon">
@@ -54,7 +45,6 @@
                 </div>
             </div>
 
-            <!-- Lecturers Card -->
             <div class="data-card">
                 <div class="card-header">
                     <div class="card-icon">
@@ -75,7 +65,6 @@
                 </div>
             </div>
 
-            <!-- Subjects Card -->
             <div class="data-card">
                 <div class="card-header">
                     <div class="card-icon">
@@ -96,7 +85,6 @@
                 </div>
             </div>
 
-            <!-- Classes Card -->
             <div class="data-card">
                 <div class="card-header">
                     <div class="card-icon">

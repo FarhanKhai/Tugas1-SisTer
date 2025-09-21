@@ -20,7 +20,6 @@ $matkulResult = $conn->query("SELECT KodeMatkul, NamaMatkul FROM MataKuliah");
 </head>
 
 <body>
-    <!-- Added modern header with navigation -->
     <header class="header">
         <div class="logo-section">
             <a href="index.php" class="btn btn-back">
@@ -34,7 +33,6 @@ $matkulResult = $conn->query("SELECT KodeMatkul, NamaMatkul FROM MataKuliah");
     </header>
 
     <div class="dashboard-container">
-        <!-- Modern form container with styling -->
         <div class="form-container">
             <div class="card-header">
                 <div class="card-icon">
@@ -84,23 +82,9 @@ $matkulResult = $conn->query("SELECT KodeMatkul, NamaMatkul FROM MataKuliah");
                     <label for="Nilai" class="form-label">
                         <i class="fas fa-star"></i> Grade
                     </label>
-                    <!-- Changed from number input to select dropdown for letter grades matching CHAR(2) SQL field -->
-                    <select name="Nilai" id="Nilai" class="form-input" required>
-                        <option value="">--Select Grade--</option>
-                        <option value="A+">A+ (Excellent)</option>
-                        <option value="A">A (Very Good)</option>
-                        <option value="A-">A- (Good Plus)</option>
-                        <option value="B+">B+ (Good)</option>
-                        <option value="B">B (Above Average)</option>
-                        <option value="B-">B- (Average Plus)</option>
-                        <option value="C+">C+ (Average)</option>
-                        <option value="C">C (Below Average)</option>
-                        <option value="D">D (Poor)</option>
-                        <option value="E">E (Fail)</option>
-                    </select>
+                    <input type="text" name="Nilai" id="Nilai" class="form-input" placeholder="Enter grade (e.g., A+)" maxlength="2" required>
                 </div>
 
-                <!-- Modern form actions with icons -->
                 <div class="form-actions">
                     <button type="button" onclick="window.location.href='index.php'" class="btn btn-cancel">
                         <i class="fas fa-times"></i> Cancel

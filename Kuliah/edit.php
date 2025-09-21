@@ -40,7 +40,6 @@ $matkulResult = $conn->query("SELECT KodeMatkul, NamaMatkul FROM MataKuliah");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Added modern header with navigation matching Mahasiswa edit page -->
     <header class="header">
         <div class="logo-section">
             <a href="index.php" class="btn btn-back">
@@ -54,7 +53,6 @@ $matkulResult = $conn->query("SELECT KodeMatkul, NamaMatkul FROM MataKuliah");
     </header>
 
     <div class="dashboard-container">
-        <!-- Added modern form container with styling matching Mahasiswa edit page -->
         <div class="form-container">
             <div class="card-header">
                 <div class="card-icon">
@@ -73,7 +71,9 @@ $matkulResult = $conn->query("SELECT KodeMatkul, NamaMatkul FROM MataKuliah");
                         <i class="fas fa-user-graduate"></i> Student
                     </label>
                     <select name="NIM" id="NIM" class="form-input" required>
-                        <?php while($mhs = $mhsResult->fetch_assoc()): ?>
+                        <?php 
+                        mysqli_data_seek($mhsResult, 0);
+                        while($mhs = $mhsResult->fetch_assoc()): ?>
                             <option value="<?= $mhs['NIM'] ?>" <?= $kuliah['NIM']==$mhs['NIM'] ? 'selected' : '' ?>>
                                 <?= $mhs['NIM'] ?> - <?= $mhs['Nama'] ?>
                             </option>
@@ -86,7 +86,9 @@ $matkulResult = $conn->query("SELECT KodeMatkul, NamaMatkul FROM MataKuliah");
                         <i class="fas fa-chalkboard-teacher"></i> Lecturer
                     </label>
                     <select name="NIP" id="NIP" class="form-input" required>
-                        <?php while($dosen = $dosenResult->fetch_assoc()): ?>
+                        <?php 
+                        mysqli_data_seek($dosenResult, 0);
+                        while($dosen = $dosenResult->fetch_assoc()): ?>
                             <option value="<?= $dosen['NIP'] ?>" <?= $kuliah['NIP']==$dosen['NIP'] ? 'selected' : '' ?>>
                                 <?= $dosen['NIP'] ?> - <?= $dosen['Nama'] ?>
                             </option>
@@ -99,7 +101,9 @@ $matkulResult = $conn->query("SELECT KodeMatkul, NamaMatkul FROM MataKuliah");
                         <i class="fas fa-book"></i> Subject
                     </label>
                     <select name="KodeMatkul" id="KodeMatkul" class="form-input" required>
-                        <?php while($mk = $matkulResult->fetch_assoc()): ?>
+                        <?php 
+                        mysqli_data_seek($matkulResult, 0);
+                        while($mk = $matkulResult->fetch_assoc()): ?>
                             <option value="<?= $mk['KodeMatkul'] ?>" <?= $kuliah['KodeMatkul']==$mk['KodeMatkul'] ? 'selected' : '' ?>>
                                 <?= $mk['KodeMatkul'] ?> - <?= $mk['NamaMatkul'] ?>
                             </option>
@@ -111,23 +115,9 @@ $matkulResult = $conn->query("SELECT KodeMatkul, NamaMatkul FROM MataKuliah");
                     <label for="Nilai" class="form-label">
                         <i class="fas fa-star"></i> Grade
                     </label>
-                    <!-- Changed from number input to select dropdown for letter grades -->
-                    <select name="Nilai" id="Nilai" class="form-input" required>
-                        <option value="">--Select Grade--</option>
-                        <option value="A+" <?= $kuliah['Nilai']=='A+' ? 'selected' : '' ?>>A+ (Excellent)</option>
-                        <option value="A" <?= $kuliah['Nilai']=='A' ? 'selected' : '' ?>>A (Very Good)</option>
-                        <option value="A-" <?= $kuliah['Nilai']=='A-' ? 'selected' : '' ?>>A- (Good Plus)</option>
-                        <option value="B+" <?= $kuliah['Nilai']=='B+' ? 'selected' : '' ?>>B+ (Good)</option>
-                        <option value="B" <?= $kuliah['Nilai']=='B' ? 'selected' : '' ?>>B (Above Average)</option>
-                        <option value="B-" <?= $kuliah['Nilai']=='B-' ? 'selected' : '' ?>>B- (Average Plus)</option>
-                        <option value="C+" <?= $kuliah['Nilai']=='C+' ? 'selected' : '' ?>>C+ (Average)</option>
-                        <option value="C" <?= $kuliah['Nilai']=='C' ? 'selected' : '' ?>>C (Below Average)</option>
-                        <option value="D" <?= $kuliah['Nilai']=='D' ? 'selected' : '' ?>>D (Poor)</option>
-                        <option value="E" <?= $kuliah['Nilai']=='E' ? 'selected' : '' ?>>E (Fail)</option>
-                    </select>
+                    <input type="text" name="Nilai" id="Nilai" class="form-input" placeholder="Enter grade (e.g., A+)" maxlength="2" required value="<?= htmlspecialchars($kuliah['Nilai']) ?>">
                 </div>
 
-                <!-- Added modern form actions with cancel button matching Mahasiswa edit page -->
                 <div class="form-actions">
                     <button type="button" onclick="window.location.href='index.php'" class="btn btn-cancel">
                         <i class="fas fa-times"></i> Cancel

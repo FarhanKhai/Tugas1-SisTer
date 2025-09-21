@@ -23,7 +23,6 @@ $result = $conn->query($query);
 </head>
 
 <body>
-    <!-- Modern header with back navigation -->
     <header class="header">
         <div class="logo-section">
             <a href="../index.php" class="btn btn-back">
@@ -37,7 +36,6 @@ $result = $conn->query($query);
     </header>
 
     <div class="dashboard-container">
-        <!-- Modern table container with search and sort -->
         <div class="table-container">
             <div class="table-header">
                 <h2 class="table-title">
@@ -48,7 +46,6 @@ $result = $conn->query($query);
                 </a>
             </div>
 
-            <!-- Search and Sort Controls -->
             <div class="table-controls">
                 <form method="GET" style="display: flex; gap: 1rem; flex: 1;">
                     <input type="text" name="search" class="search-box" 
@@ -68,11 +65,9 @@ $result = $conn->query($query);
                 </form>
             </div>
 
-            <!-- Modern Data Table -->
             <table class="data-table">
                 <thead>
                     <tr>
-                        <!-- Changed Subject Code icon to file-alt (paper stack icon) -->
                         <th><i class="fas fa-file-alt"></i> Subject Code</th>
                         <th><i class="fas fa-book-open"></i> Subject Name</th>
                         <th><i class="fas fa-star"></i> Credits (SKS)</th>
@@ -86,20 +81,17 @@ $result = $conn->query($query);
                         <tr>
                             <td><strong><?php echo htmlspecialchars($row['KodeMatkul']); ?></strong></td>
                             <td><?php echo htmlspecialchars($row['NamaMatkul']); ?></td>
-                            <!-- Removed yellowish background and centered SKS numbers -->
                             <td style="text-align: center;">
                                 <?php echo htmlspecialchars($row['SKS']); ?>
                             </td>
-                            <!-- Centered semester column data -->
                             <td style="text-align: center;"><?php echo htmlspecialchars($row['Semester']); ?></td>
                             <td>
-                                <!-- Icon-based action buttons -->
                                 <div class="action-buttons">
                                     <a href="edit.php?KodeMatkul=<?php echo $row['KodeMatkul']; ?>" 
                                        class="btn-icon btn-edit" title="Edit Subject">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <button onclick="confirmDelete('<?php echo $row['KodeMatkul']; ?>', '<?php echo htmlspecialchars($row['NamaMatkul']); ?>')" 
+                                    <button onclick="confirmDelete('<?php echo $row['KodeMatkul']; ?>', '<?php echo addslashes(htmlspecialchars($row['NamaMatkul'])); ?>')" 
                                             class="btn-icon btn-delete" title="Delete Subject">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -120,7 +112,6 @@ $result = $conn->query($query);
         </div>
     </div>
 
-    <!-- Custom Delete Confirmation Modal -->
     <div id="deleteModal" class="modal-overlay hidden">
         <div class="modal">
             <div class="modal-header">
