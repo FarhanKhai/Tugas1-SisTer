@@ -8,18 +8,35 @@ if (!isset($_GET['NIP'])) {
 
 $NIP = $_GET['NIP'];
 
-// Menghapus data by NIP
-$sql = "DELETE FROM Dosen WHERE NIP = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $NIP);
+// Mulai transaksi
+$conn->begin_transaction();
 
-if ($stmt->execute()) {
+try {
+    // 1. Hapus record terkait di tabel Kuliah
+    $sql_kuliah = "DELETE FROM Kuliah WHERE NIP = ?";
+    $stmt_kuliah = $conn->prepare($sql_kuliah);
+    $stmt_kuliah->bind_param("s", $NIP);
+    $stmt_kuliah->execute();
+    $stmt_kuliah->close();
+
+    // 2. Hapus record Dosen
+    $sql_dosen = "DELETE FROM Dosen WHERE NIP = ?";
+    $stmt_dosen = $conn->prepare($sql_dosen);
+    $stmt_dosen->bind_param("s", $NIP);
+    $stmt_dosen->execute();
+
+    // Commit transaksi jika berhasil
+    $conn->commit();
+
+    $stmt_dosen->close();
     header("Location: index.php");
     exit;
-} else {
-    echo "Gagal menghapus data Mahasiswa: " . $stmt->error;
+
+} catch (mysqli_sql_exception $exception) {
+    // Rollback jika gagal
+    $conn->rollback();
+    echo "Gagal menghapus data Dosen: " . $exception->getMessage();
 }
 
-$stmt->close();
 $conn->close();
 ?>

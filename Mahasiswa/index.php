@@ -23,7 +23,6 @@ $result = $conn->query($query);
 </head>
 
 <body>
-    <!-- Replaced "Back to Dashboard" text with just arrow icon -->
     <header class="header">
         <div class="logo-section">
             <a href="../index.php" class="btn btn-back">
@@ -37,7 +36,6 @@ $result = $conn->query($query);
     </header>
 
     <div class="dashboard-container">
-        <!-- Modern table container with search and sort -->
         <div class="table-container">
             <div class="table-header">
                 <h2 class="table-title">
@@ -48,7 +46,6 @@ $result = $conn->query($query);
                 </a>
             </div>
 
-            <!-- Search and Sort Controls -->
             <div class="table-controls">
                 <form method="GET" style="display: flex; gap: 1rem; flex: 1;">
                     <input type="text" name="search" class="search-box" 
@@ -67,7 +64,6 @@ $result = $conn->query($query);
                 </form>
             </div>
 
-            <!-- Modern Data Table -->
             <table class="data-table">
                 <thead>
                     <tr>
@@ -85,13 +81,12 @@ $result = $conn->query($query);
                             <td><?php echo htmlspecialchars($row['Nama']); ?></td>
                             <td><?php echo htmlspecialchars($row['Alamat']); ?></td>
                             <td>
-                                <!-- Icon-based action buttons -->
                                 <div class="action-buttons">
                                     <a href="edit.php?NIM=<?php echo $row['NIM']; ?>" 
                                        class="btn-icon btn-edit" title="Edit Student">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <button onclick="confirmDelete('<?php echo $row['NIM']; ?>', '<?php echo htmlspecialchars($row['Nama']); ?>')" 
+                                    <button onclick="confirmDelete('<?php echo $row['NIM']; ?>', '<?php echo addslashes(htmlspecialchars($row['Nama'])); ?>')" 
                                             class="btn-icon btn-delete" title="Delete Student">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -112,7 +107,6 @@ $result = $conn->query($query);
         </div>
     </div>
 
-    <!-- Custom Delete Confirmation Modal -->
     <div id="deleteModal" class="modal-overlay hidden">
         <div class="modal">
             <div class="modal-header">

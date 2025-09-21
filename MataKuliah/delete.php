@@ -8,18 +8,35 @@ if (!isset($_GET['KodeMatkul'])) {
 
 $KodeMatkul = $_GET['KodeMatkul'];
 
-// Menghapus data by Kode Mata Kuliah
-$sql = "DELETE FROM MataKuliah WHERE KodeMatkul = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $KodeMatkul);
+// Mulai transaksi
+$conn->begin_transaction();
 
-if ($stmt->execute()) {
+try {
+    // 1. Hapus record terkait di tabel Kuliah
+    $sql_kuliah = "DELETE FROM Kuliah WHERE KodeMatkul = ?";
+    $stmt_kuliah = $conn->prepare($sql_kuliah);
+    $stmt_kuliah->bind_param("s", $KodeMatkul);
+    $stmt_kuliah->execute();
+    $stmt_kuliah->close();
+
+    // 2. Hapus record MataKuliah
+    $sql_matkul = "DELETE FROM MataKuliah WHERE KodeMatkul = ?";
+    $stmt_matkul = $conn->prepare($sql_matkul);
+    $stmt_matkul->bind_param("s", $KodeMatkul);
+    $stmt_matkul->execute();
+
+    // Commit jika berhasil
+    $conn->commit();
+    
+    $stmt_matkul->close();
     header("Location: index.php");
     exit;
-} else {
-    echo "Gagal menghapus data Mata Kuliah: " . $stmt->error;
+
+} catch (mysqli_sql_exception $exception) {
+    // Rollback jika gagal
+    $conn->rollback();
+    echo "Gagal menghapus data Mata Kuliah: " . $exception->getMessage();
 }
 
-$stmt->close();
 $conn->close();
 ?>
