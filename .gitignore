@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Composer (kalau pakai PHP library)
+vendor/
+composer.lock
+
+# Node.js (kalau ada frontend build)
+node_modules/
+package-lock.json
+
+# Environment / config lokal
+.env
+*.local
+config/*.local.php
+
+# Log / cache
+*.log
+*.sql
+*.sqlite
+.cache/
+tmp/
