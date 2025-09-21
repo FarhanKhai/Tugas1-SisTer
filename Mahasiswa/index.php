@@ -48,16 +48,16 @@ $result = $conn->query($query);
 
             <div class="table-controls">
                 <form method="GET" style="display: flex; gap: 1rem; flex: 1;">
-                    <input type="text" name="search" class="search-box" 
-                           placeholder="Search by NIM or Name..." 
+                    <input type="text" name="search" class="search-box"
+                           placeholder="Search by NIM or Name..."
                            value="<?php echo htmlspecialchars($search); ?>">
-                    
+
                     <select name="sort" class="sort-select" onchange="this.form.submit()">
                         <option value="NIM" <?php echo $sort == 'NIM' ? 'selected' : ''; ?>>Sort by NIM</option>
                         <option value="Nama" <?php echo $sort == 'Nama' ? 'selected' : ''; ?>>Sort by Name</option>
                         <option value="Alamat" <?php echo $sort == 'Alamat' ? 'selected' : ''; ?>>Sort by Address</option>
                     </select>
-                    
+
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-search"></i> Search
                     </button>
@@ -82,12 +82,15 @@ $result = $conn->query($query);
                             <td><?php echo htmlspecialchars($row['Alamat']); ?></td>
                             <td>
                                 <div class="action-buttons">
-                                    <a href="edit.php?NIM=<?php echo $row['NIM']; ?>" 
+                                    <a href="edit.php?NIM=<?php echo htmlspecialchars($row['NIM']); ?>"
                                        class="btn-icon btn-edit" title="Edit Student">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <button onclick="confirmDelete('<?php echo $row['NIM']; ?>', '<?php echo addslashes(htmlspecialchars($row['Nama'])); ?>')" 
-                                            class="btn-icon btn-delete" title="Delete Student">
+                                    <button class="btn-icon btn-delete" 
+                                            data-nim="<?php echo htmlspecialchars($row['NIM']); ?>" 
+                                            data-nama="<?php echo htmlspecialchars($row['Nama']); ?>" 
+                                            onclick="confirmDelete(this)" 
+                                            title="Delete Student">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -128,10 +131,13 @@ $result = $conn->query($query);
     </div>
 
     <script>
-        function confirmDelete(nim, nama) {
+        function confirmDelete(button) {
+            const nim = button.dataset.nim;
+            const nama = button.dataset.nama;
+            
             document.getElementById('deleteModal').classList.remove('hidden');
             document.getElementById('confirmDeleteBtn').href = `delete.php?NIM=${nim}`;
-            document.querySelector('.modal-message').innerHTML = 
+            document.querySelector('.modal-message').innerHTML =
                 `Are you sure you want to delete student <strong>${nama}</strong> (NIM: ${nim})? This action cannot be undone.`;
         }
 
@@ -139,7 +145,6 @@ $result = $conn->query($query);
             document.getElementById('deleteModal').classList.add('hidden');
         }
 
-        // Close modal when clicking outside
         document.getElementById('deleteModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeDeleteModal();

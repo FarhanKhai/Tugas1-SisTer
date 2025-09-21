@@ -48,16 +48,14 @@ $result = $conn->query($query);
 
             <div class="table-controls">
                 <form method="GET" style="display: flex; gap: 1rem; flex: 1;">
-                    <input type="text" name="search" class="search-box" 
-                           placeholder="Search by NIP or Name..." 
+                    <input type="text" name="search" class="search-box"
+                           placeholder="Search by NIP or Name..."
                            value="<?php echo htmlspecialchars($search); ?>">
-                    
                     <select name="sort" class="sort-select" onchange="this.form.submit()">
                         <option value="NIP" <?php echo $sort == 'NIP' ? 'selected' : ''; ?>>Sort by NIP</option>
                         <option value="Nama" <?php echo $sort == 'Nama' ? 'selected' : ''; ?>>Sort by Name</option>
                         <option value="Alamat" <?php echo $sort == 'Alamat' ? 'selected' : ''; ?>>Sort by Address</option>
                     </select>
-                    
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-search"></i> Search
                     </button>
@@ -82,12 +80,15 @@ $result = $conn->query($query);
                             <td><?php echo htmlspecialchars($row['Alamat']); ?></td>
                             <td>
                                 <div class="action-buttons">
-                                    <a href="edit.php?NIP=<?php echo $row['NIP']; ?>" 
+                                    <a href="edit.php?NIP=<?php echo htmlspecialchars($row['NIP']); ?>"
                                        class="btn-icon btn-edit" title="Edit Lecturer">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <button onclick="confirmDelete('<?php echo $row['NIP']; ?>', '<?php echo addslashes(htmlspecialchars($row['Nama'])); ?>')" 
-                                            class="btn-icon btn-delete" title="Delete Lecturer">
+                                    <button class="btn-icon btn-delete"
+                                            data-nip="<?php echo htmlspecialchars($row['NIP']); ?>"
+                                            data-nama="<?php echo htmlspecialchars($row['Nama']); ?>"
+                                            onclick="confirmDelete(this)"
+                                            title="Delete Lecturer">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -110,28 +111,25 @@ $result = $conn->query($query);
     <div id="deleteModal" class="modal-overlay hidden">
         <div class="modal">
             <div class="modal-header">
-                <div class="modal-icon">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
+                <div class="modal-icon"><i class="fas fa-exclamation-triangle"></i></div>
                 <h3 class="modal-title">Confirm Deletion</h3>
                 <p class="modal-message">Are you sure you want to delete this lecturer? This action cannot be undone.</p>
             </div>
             <div class="modal-actions">
-                <button onclick="closeDeleteModal()" class="btn btn-cancel">
-                    <i class="fas fa-times"></i> Cancel
-                </button>
-                <a id="confirmDeleteBtn" href="#" class="btn btn-confirm">
-                    <i class="fas fa-trash"></i> Delete
-                </a>
+                <button onclick="closeDeleteModal()" class="btn btn-cancel"><i class="fas fa-times"></i> Cancel</button>
+                <a id="confirmDeleteBtn" href="#" class="btn btn-confirm"><i class="fas fa-trash"></i> Delete</a>
             </div>
         </div>
     </div>
 
     <script>
-        function confirmDelete(nip, nama) {
+        function confirmDelete(button) {
+            const nip = button.dataset.nip;
+            const nama = button.dataset.nama;
+            
             document.getElementById('deleteModal').classList.remove('hidden');
             document.getElementById('confirmDeleteBtn').href = `delete.php?NIP=${nip}`;
-            document.querySelector('.modal-message').innerHTML = 
+            document.querySelector('.modal-message').innerHTML =
                 `Are you sure you want to delete lecturer <strong>${nama}</strong> (NIP: ${nip})? This action cannot be undone.`;
         }
 
@@ -139,7 +137,6 @@ $result = $conn->query($query);
             document.getElementById('deleteModal').classList.add('hidden');
         }
 
-        // Close modal when clicking outside
         document.getElementById('deleteModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeDeleteModal();
