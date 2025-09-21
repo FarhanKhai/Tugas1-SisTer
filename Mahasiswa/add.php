@@ -1,3 +1,7 @@
+<?php
+// Start the session to display error messages from the process file
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +11,10 @@
     <link rel="stylesheet" href="../assets/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
     <header class="header">
         <div class="logo-section">
-            <a href="index.php" class="btn btn-back">
-                <i class="fas fa-arrow-left"></i>
-            </a>
+            <a href="index.php" class="btn btn-back"><i class="fas fa-arrow-left"></i></a>
             <div>
                 <h1 class="university-title">Add New Student</h1>
                 <p class="subtitle">Sebelas Maret University</p>
@@ -24,44 +25,34 @@
     <div class="dashboard-container">
         <div class="form-container">
             <div class="card-header">
-                <div class="card-icon">
-                    <i class="fas fa-user-plus"></i>
-                </div>
+                <div class="card-icon"><i class="fas fa-user-plus"></i></div>
                 <h2 class="card-title">Student Information</h2>
             </div>
 
+            <?php if (isset($_SESSION['error'])): ?>
+                <div class="form-group" style="background-color: var(--danger); color: white; padding: 1rem; border-radius: 8px;">
+                    <?php 
+                        echo $_SESSION['error']; 
+                        unset($_SESSION['error']); 
+                    ?>
+                </div>
+            <?php endif; ?>
             <form action="process_add.php" method="POST">
                 <div class="form-group">
-                    <label for="NIM" class="form-label">
-                        <i class="fas fa-id-card"></i> Student ID (NIM)
-                    </label>
-                    <input type="text" id="NIM" name="NIM" class="form-input" 
-                           placeholder="Enter student ID number" required>
+                    <label for="NIM" class="form-label"><i class="fas fa-id-card"></i> Student ID (NIM)</label>
+                    <input type="text" id="NIM" name="NIM" class="form-input" placeholder="Enter student ID number" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="Nama" class="form-label">
-                        <i class="fas fa-user"></i> Full Name
-                    </label>
-                    <input type="text" id="Nama" name="Nama" class="form-input" 
-                           placeholder="Enter student full name" required>
+                    <label for="Nama" class="form-label"><i class="fas fa-user"></i> Full Name</label>
+                    <input type="text" id="Nama" name="Nama" class="form-input" placeholder="Enter student full name" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="Alamat" class="form-label">
-                        <i class="fas fa-map-marker-alt"></i> Address
-                    </label>
-                    <input type="text" id="Alamat" name="Alamat" class="form-input" 
-                           placeholder="Enter student address" required>
+                    <label for="Alamat" class="form-label"><i class="fas fa-map-marker-alt"></i> Address</label>
+                    <input type="text" id="Alamat" name="Alamat" class="form-input" placeholder="Enter student address" required>
                 </div>
-
                 <div class="form-actions">
-                    <button type="button" onclick="window.location.href='index.php'" class="btn btn-cancel">
-                        <i class="fas fa-times"></i> Cancel
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Save Student
-                    </button>
+                    <button type="button" onclick="window.location.href='index.php'" class="btn btn-cancel"><i class="fas fa-times"></i> Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Student</button>
                 </div>
             </form>
         </div>
