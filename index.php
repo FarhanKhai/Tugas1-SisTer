@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sebelas Maret University - Student Information System</title>
+    <title>Sebelas Maret University - Grade Information System</title>
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -13,15 +13,14 @@
             <img src="assets/logouns.png" alt="Sebelas Maret University Logo" class="logo">
             <div>
                 <h1 class="university-title">Sebelas Maret University</h1>
-                <p class="subtitle">Student Information System</p>
+                <p class="subtitle">Grade Information System</p>
             </div>
         </div>
         </header>
 
     <div class="dashboard-container">
         <div class="text-center mb-2">
-            <h2 style="color: var(--university-blue); font-size: 2rem; margin-bottom: 0.5rem;">Dashboard Overview</h2>
-            <p style="color: var(--text-light);">Manage your university data efficiently</p>
+            <h2 style="color: var(--university-blue); font-size: 2rem; margin-bottom: 0.5rem;">Data Overview</h2>
         </div>
 
         <div class="dashboard-grid">
@@ -33,7 +32,7 @@
                     <h3 class="card-title">Mahasiswa</h3>
                 </div>
                 <p class="card-description">
-                    Manage student records, including personal information, academic status, and enrollment details.
+                    Kelola NIM, Nama, serta Alamat Mahasiswa Universitas Sebelas Maret.
                 </p>
                 <div class="card-actions">
                     <a href="Mahasiswa/index.php" class="btn btn-primary">
@@ -53,7 +52,7 @@
                     <h3 class="card-title">Dosen</h3>
                 </div>
                 <p class="card-description">
-                    Manage lecturer profiles, academic credentials, and teaching assignments within the university.
+                    Kelola NIP, Nama, serta Alamat Dosen Universitas Sebelas Maret.
                 </p>
                 <div class="card-actions">
                     <a href="Dosen/index.php" class="btn btn-primary">
@@ -73,7 +72,7 @@
                     <h3 class="card-title">Mata Kuliah</h3>
                 </div>
                 <p class="card-description">
-                    Manage course catalog, subject codes, credit hours, and curriculum requirements.
+                    Kelola Kode Mata Kuliah, Nama Mata Kuliah, SKS, serta Semester.
                 </p>
                 <div class="card-actions">
                     <a href="MataKuliah/index.php" class="btn btn-primary">
@@ -93,7 +92,7 @@
                     <h3 class="card-title">Kuliah</h3>
                 </div>
                 <p class="card-description">
-                    Manage class schedules, enrollment transactions, and academic session planning.
+                    Kelola tabel transaksi perkuliahan yang menghubungkan Mahasiswa, Dosen, dan Mata Kuliah.
                 </p>
                 <div class="card-actions">
                     <a href="Kuliah/index.php" class="btn btn-primary">
