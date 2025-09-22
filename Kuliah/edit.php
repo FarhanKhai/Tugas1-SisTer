@@ -115,7 +115,7 @@ $matkulResult = $conn->query("SELECT KodeMatkul, NamaMatkul FROM MataKuliah");
                     <label for="Nilai" class="form-label">
                         <i class="fas fa-star"></i> Grade
                     </label>
-                    <input type="text" name="Nilai" id="Nilai" class="form-input" placeholder="Enter grade (e.g., A+)" maxlength="2" required value="<?= htmlspecialchars($kuliah['Nilai']) ?>">
+                    <input type="text" name="Nilai" id="Nilai" class="form-input" placeholder="Enter grade (e.g., A)" maxlength="2" required value="<?= htmlspecialchars($kuliah['Nilai']) ?>">
                 </div>
 
                 <div class="form-actions">
